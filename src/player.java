@@ -1,4 +1,4 @@
-public class player {
+public class Player {
 
     private String name;
     private boolean isHuman;
@@ -6,21 +6,21 @@ public class player {
     public int totalScore = 0;   // make public if GameEngine updates directly
 
     // Constructor for bot
-    public player(String name, strategy strategy) {
+    public Player(String name, strategy strategy) {
         this.name = name;
         this.strategy = strategy;
         this.isHuman = false;
     }
 
     // Constructor for human (strategy can be set later)
-    public player(String name, boolean isHuman) {
+    public Player(String name, boolean isHuman) {
         this.name = name;
         this.isHuman = isHuman;
         this.strategy = null; // will be provided later by UI
     }
 
     // Constructor for human with assigned strategy
-    public player(String name, boolean isHuman, strategy strategy) {
+    public Player(String name, boolean isHuman, strategy strategy) {
         this.name = name;
         this.isHuman = isHuman;
         this.strategy = strategy;

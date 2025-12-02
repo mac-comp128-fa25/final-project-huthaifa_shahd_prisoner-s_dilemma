@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class TitForTat implements strategy {
     
     private Move lastOpponentMove;
@@ -13,7 +15,19 @@ public class TitForTat implements strategy {
         return lastOpponentMove; // Mimic opponent's last move
     }
 
+    @Override
     public void recordOpponentMove(Move opponentMove) {
         this.lastOpponentMove = opponentMove;
     }
+    @Override
+    public String chooseMove(Player self, List<RoundRecord> history) {
+        if (history.isEmpty()) return "C";
+        return history.get(history.size() - 1).getOpponentLastMove();
+    }
+
+    @Override
+    public String getName() {
+        return "TitForTat";
+    }
 }
+
