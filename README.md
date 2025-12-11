@@ -59,8 +59,8 @@ java Main
 
 This opens the main menu where you can choose gameplay modes.
 
-🎮 Gameplay Modes
-1️⃣ Human vs Bot
+-Gameplay Modes
+-Human vs Bot
 
 Choose your move (Cooperate or Defect)
 
@@ -68,13 +68,13 @@ Bot responds according to its strategy
 
 UI displays payoffs and score updates
 
-2️⃣ Bot vs Bot
+-Bot vs Bot
 
 Two strategies play automatically
 
 Moves + outcomes appear round by round
 
-3️⃣ Tournament Mode
+-Tournament Mode
 
 Every player faces every other player
 
@@ -82,11 +82,11 @@ GameEngine runs all matches
 
 MatchGraph displays the tournament structure visually
 
-🧪 Extending the Project
+Extending the Project
 
 You can easily add:
 
-New strategies (Always Cooperate, Pavlov, Forgiving TFT, etc.)
+New strategies ( Pavlov, Forgiving TFT, etc.)
 
 Different payoff matrices
 
@@ -94,14 +94,7 @@ Logging to CSV/JSON
 
 Round animations or charts of cooperation rates
 
-To add a new strategy, simply implement the same method signatures:
-
-public class MyStrategy implements Strategy {
-    public Move chooseMove() { ... }
-    public void recordOpponentMove(Move move) { ... }
-}
-
-🧑‍💻 Authors
+Authors
 
 Huthaifa & Shahd
 Macalester College – Final Project
