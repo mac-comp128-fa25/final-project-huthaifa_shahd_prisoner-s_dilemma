@@ -1,33 +1,24 @@
-import java.util.List;
+import java.util.Random;
 
-public class RandomMove implements strategy {
-    
+public class RandomMove implements Strategy {
+
+    private Random rand = new Random();
+
     @Override
     public Move makeMove() {
-        if (Math.random() < 0.5) {
-            return Move.COOPERATE;
-        } else {
-            return Move.DEFECT;
-        }
+        return rand.nextBoolean() ? Move.COOPERATE : Move.DEFECT;
     }
 
     @Override
-    public void recordOpponentMove(Move m) {
-        // RandomMove does not need to record opponent's move
+    public void recordOpponentMove(Move opponentMove) {
+        // random has no memory
     }
+
+    @Override
+    public void reset() {}
 
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getName'");
+        return "Random";
     }
-
-    @Override
-    public String chooseMove(Player self, List<RoundRecord> history) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'chooseMove'");
-    }
-
-    
-    
 }

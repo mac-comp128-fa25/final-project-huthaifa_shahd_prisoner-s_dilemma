@@ -1,10 +1,14 @@
-import java.util.List;
+public interface Strategy {
 
-public interface strategy {
-
+    // Decide the next move
     Move makeMove();
-    void recordOpponentMove(Move m);
+
+    // Update memory with what the opponent just played
+    void recordOpponentMove(Move opponentMove);
+
+    // Reset strategy state between tournaments
+    void reset();
+
+    // Used by UI to label the strategy
     String getName();
-    String chooseMove(Player self, List<RoundRecord> history);
 }
-// Make a random function to choose between the stratigies , IDK yet where it should be 

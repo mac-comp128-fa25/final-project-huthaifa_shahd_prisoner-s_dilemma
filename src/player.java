@@ -1,32 +1,33 @@
 public class Player {
 
-    private String name;
-    private boolean isHuman;
-    private strategy strategy;   // the strategy object the player uses
-    public int totalScore = 0;   // make public if GameEngine updates directly
+    private final String name;
+    private final boolean isHuman;
+    private Strategy strategy;   // null for humans
+    public int totalScore;       // public for UI access, but could make getter
 
-    // Constructor for bot
-    public Player(String name, strategy strategy) {
+    /**
+     * Constructor for bots
+     */
+    public Player(String name, Strategy strategy) {
         this.name = name;
         this.strategy = strategy;
         this.isHuman = false;
+        this.totalScore = 0;
     }
 
-    // Constructor for human (strategy can be set later)
+    /**
+     * Constructor for humans
+     */
     public Player(String name, boolean isHuman) {
         this.name = name;
         this.isHuman = isHuman;
-        this.strategy = null; // will be provided later by UI
+        this.strategy = null;   // humans don't use strategies
+        this.totalScore = 0;
     }
 
-    // Constructor for human with assigned strategy
-    public Player(String name, boolean isHuman, strategy strategy) {
-        this.name = name;
-        this.isHuman = isHuman;
-        this.strategy = strategy;
-    }
-
+    // ---------------------
     // Getters
+    // ---------------------
     public String getName() {
         return name;
     }
@@ -35,20 +36,25 @@ public class Player {
         return isHuman;
     }
 
-    public strategy getStrategy() {
+    public Strategy getStrategy() {
         return strategy;
     }
 
-    public int getTotalScore() {
-        return totalScore;
+    // Only bots may change strategy
+    public void setStrategy(Strategy s) {
+        if (isHuman) {
+            throw new IllegalStateException("Humans cannot have strategies.");
+        }
+        this.strategy = s;
     }
 
-    // Setters
-    public void setStrategy(strategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public void addScore(int points) {
-        this.totalScore += points;
+    /**
+     * Reset player score AND strategy state between tournaments.
+     */
+    public void reset() {
+        this.totalScore = 0;
+        if (!isHuman && strategy != null) {
+            strategy.reset();
+        }
     }
 }

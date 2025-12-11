@@ -1,25 +1,20 @@
-import java.util.List;
+public class AlwaysDefect implements Strategy {
 
-public class AlwaysDefect implements strategy {
-    
+    @Override
     public Move makeMove() {
         return Move.DEFECT;
     }
 
     @Override
-    public void recordOpponentMove(Move m) {
-        // AlwaysDefect does not need to record opponent's move 
+    public void recordOpponentMove(Move opponentMove) {
+        // no memory needed
     }
+
+    @Override
+    public void reset() {}
 
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getName'");
-    }
-
-    @Override
-    public String chooseMove(Player self, List<RoundRecord> history) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'chooseMove'");
+        return "AlwaysDefect";
     }
 }

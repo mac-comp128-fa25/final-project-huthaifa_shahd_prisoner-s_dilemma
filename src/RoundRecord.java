@@ -1,42 +1,32 @@
 public class RoundRecord {
-    public Move move1;
-    public Move move2;
-    public int payoff1;
-    public int payoff2;
-    public Player p1;
-    public Player p2;
 
-    public RoundRecord playRound(Player p1, Player p2) {
+    private final Player p1;
+    private final Player p2;
 
-    // get their strategies
-    strategy s1 = p1.getStrategy();
-    strategy s2 = p2.getStrategy();
+    private final Move p1Move;
+    private final Move p2Move;
 
-    // get moves
-    Move move1 = s1.makeMove();
-    Move move2 = s2.makeMove();
+    private final int p1Payoff;
+    private final int p2Payoff;
 
-    // get payoff
-    int[] payoff = GameEngine.getPayoff(move1, move2);
+    public RoundRecord(Player p1, Player p2,
+                       Move p1Move, Move p2Move,
+                       int p1Payoff, int p2Payoff) {
 
-    // update player scores
-    p1.totalScore += payoff[0];
-    p2.totalScore += payoff[1];
-
-    // create result object
-    RoundRecord result = new RoundRecord();
-    result.p1 = p1;
-    result.p2 = p2;
-    result.move1 = move1;
-    result.move2 = move2;
-    result.payoff1 = payoff[0];
-    result.payoff2 = payoff[1];
-
-    return result;
-}
-
-    public String getOpponentLastMove() {
-        return move2 == Move.COOPERATE ? "C" : "D";
+        this.p1 = p1;
+        this.p2 = p2;
+        this.p1Move = p1Move;
+        this.p2Move = p2Move;
+        this.p1Payoff = p1Payoff;
+        this.p2Payoff = p2Payoff;
     }
 
+    public Player getP1() { return p1; }
+    public Player getP2() { return p2; }
+
+    public Move getP1Move() { return p1Move; }
+    public Move getP2Move() { return p2Move; }
+
+    public int getP1Payoff() { return p1Payoff; }
+    public int getP2Payoff() { return p2Payoff; }
 }

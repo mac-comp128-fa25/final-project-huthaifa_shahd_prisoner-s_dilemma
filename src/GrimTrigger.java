@@ -1,37 +1,30 @@
-import java.util.List;
+public class GrimTrigger implements Strategy {
 
-public class GrimTrigger implements strategy {
+    private boolean triggered;
 
-    private boolean triggered = false; // becomes true after opponent defects once
+    public GrimTrigger() {
+        reset();
+    }
 
     @Override
     public Move makeMove() {
-        // If we have been "triggered", always defect
-        if (triggered) {
-            return Move.DEFECT;
-        }
-
-        // Otherwise, start by cooperating
-        return Move.COOPERATE;
+        return triggered ? Move.DEFECT : Move.COOPERATE;
     }
+
     @Override
-    public void recordOpponentMove(Move oppMove) {
-        // One defection → defect forever
-        if (oppMove == Move.DEFECT) {
+    public void recordOpponentMove(Move opponentMove) {
+        if (opponentMove == Move.DEFECT) {
             triggered = true;
         }
     }
+
+    @Override
+    public void reset() {
+        triggered = false;
+    }
+
     @Override
     public String getName() {
         return "GrimTrigger";
-    }
-    @Override
-    public String chooseMove(Player self, List<RoundRecord> history) {
-        for (RoundRecord record : history) {
-            if (record.getOpponentLastMove().equals("D")) {
-                return "D";
-            }
-        }
-        return "C";
     }
 }
