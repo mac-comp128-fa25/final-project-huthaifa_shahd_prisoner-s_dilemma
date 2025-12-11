@@ -1,118 +1,108 @@
-Prisoner’s Dilemma Tournament – README
-Overview
+Prisoner’s Dilemma Tournament
 
-This project implements an interactive Prisoner’s Dilemma simulation using Kilt Graphics in Java.
-Users can play against bot strategies, watch bots play against each other, and run full tournament simulations.
+A Java + Kilt Graphics interactive simulation of strategies, matches, and tournaments
 
-The system includes:
+Features
 
-A Game Engine that controls scoring, rounds, and interactions between strategies.
+Multiple bot strategies (Tit-for-Tat, Grim Trigger, Random)
 
-Multiple bot strategies (Tit-for-Tat, Grim Trigger, Random, etc.).
+Human vs. Bot gameplay
 
-Human-play UI windows for individual matches.
+Bot vs. Bot simulation
 
-A full Tournament UI and a Match Graph that visualizes pairings and results.
+Full round-robin tournament mode
+
+MatchGraph visualization of all pairings
+
+Modular, extensible strategy architecture
+
+Fully interactive GUI using Kilt Graphics
 
 Project Structure
+
 Core Game Logic
-File	Description
-GameEngine.java	Manages rounds, scoring, player turns, and strategy interactions. Handles match flow and updates player scores.
-Player.java	Represents a player (human or bot). Stores name, score, and strategy associated with that player.
-Move.java	Enum representing the two possible actions: COOPERATE and DEFECT.
-RoundRecord.java	Stores the result of a single round (moves of each player + payoff). Useful for UI display or analysis.
-Strategies
-File	Strategy	Description
-TitForTat.java	Tit-for-Tat	Starts with cooperation; then copies opponent’s previous move.
-GrimTrigger.java	Grim Trigger	Cooperates until opponent defects once—then defects forever.
-RandomMove.java	Random	Chooses Cooperate or Defect randomly each round.
+File	Purpose
+GameEngine.java	Runs rounds, manages payoffs, updates scores, coordinates moves between players/strategies.
+Player.java	Represents a player (name, score, associated strategy).
+Move.java	Enum containing COOPERATE and DEFECT.
+RoundRecord.java	Stores the actions + payoffs for each round.
 
-Each strategy implements the same interface pattern:
+Strategy Implementations
+Strategy File	Strategy	Behavior
+TitForTat.java	Tit-for-Tat	Cooperates first, then copies the opponent’s previous move.
+GrimTrigger.java	Grim Trigger	Cooperates until opponent defects once; defects forever afterward.
+RandomMove.java	Random	Randomly chooses Cooperate/Defect every round.
 
-chooseMove()
+All strategies implement:
 
-recordOpponentMove(Move move)
-so the engine can interact with all strategies in a unified way.
+makeMove();
+recordOpponentMove(Move move);
 
 User Interface Components
-File	Description
-TournamentUI.java	Main menu + tournament runner. Lets you choose: Play vs Bot, Bot vs Bot, Full Tournament. Handles button interactions and canvas updates.
-HumanMatchUI.java	UI for human vs. bot matches. Displays buttons to choose moves and shows payoffs per round.
-MatchGraph.java	Displays a graph-like visualization of which players play against each other in the tournament. Useful for debugging and demonstration.
+File	Purpose
+TournamentUI.java	Main UI — choose mode, launch matches, run tournament.
+HumanMatchUI.java	Interface for Human vs Bot play.
+MatchGraph.java	Draws a visual graph of matchups in the tournament.
 
-All UIs are built using Kilt Graphics (CanvasWindow, Button, GraphicsText, etc.).
+Built entirely with Kilt Graphics (CanvasWindow, GraphicsText, Button, etc.).
 
-How to Run the Program
+How to Run
+Prerequisites
 
-Open the project in IntelliJ, Eclipse, or run through the terminal.
+Java 17 or later
 
-Ensure the Kilt Graphics library is included in your classpath.
+Kilt Graphics library added to your classpath
 
-Run:
+Run the program
+java Main
 
-java TournamentUI
 
+This opens the main menu where you can choose gameplay modes.
 
-OR in your IDE, run the TournamentUI class.
+🎮 Gameplay Modes
+1️⃣ Human vs Bot
 
-This opens the main menu window.
+Choose your move (Cooperate or Defect)
 
-Gameplay Modes
-1. Play vs Bot
+Bot responds according to its strategy
 
-Human selects moves using UI buttons.
+UI displays payoffs and score updates
 
-Bot uses its defined strategy (Tit-for-Tat, Grim Trigger, Random).
+2️⃣ Bot vs Bot
 
-Game engine updates score and displays round outcomes.
+Two strategies play automatically
 
-2. Bot vs Bot Match
+Moves + outcomes appear round by round
 
-Two automated strategies play multiple rounds.
+3️⃣ Tournament Mode
 
-You can watch moves and outcomes appear on screen.
+Every player faces every other player
 
-No human input required.
+GameEngine runs all matches
 
-3. Full Tournament
+MatchGraph displays the tournament structure visually
 
-All strategies and players are paired round-robin style.
+🧪 Extending the Project
 
-TournamentUI shows results.
+You can easily add:
 
-MatchGraph draws edges showing who played whom.
+New strategies (Always Cooperate, Pavlov, Forgiving TFT, etc.)
 
-Dependencies
+Different payoff matrices
 
-Kilt Graphics Library
-Required for all UI components.
-Make sure the JAR is properly included under Project Structure → Libraries.
+Logging to CSV/JSON
 
-Common Issues & Fixes
-NullPointerException: Player.getStrategy() is null
+Round animations or charts of cooperation rates
 
-Occurs if a bot Player is created without assigning a strategy.
-Fix: ensure every bot is initialized like:
+To add a new strategy, simply implement the same method signatures:
 
-new Player("Bot 1", new TitForTat());
+public class MyStrategy implements Strategy {
+    public Move chooseMove() { ... }
+    public void recordOpponentMove(Move move) { ... }
+}
 
-Buttons don’t disable
-
-Kilt Graphics does not support setEnabled(false).
-To disable interaction, remove the button from the canvas and re-add it later if needed.
-
-Future Improvements
-
-Add more strategy types (Pavlov, Always Defect, Always Cooperate).
-
-Export tournament results to a file.
-
-Add customizable payoff matrices.
-
-Animated visualization of Prisoner’s Dilemma payoff evolution.
-
-Authors
+🧑‍💻 Authors
 
 Huthaifa & Shahd
-Macalester College — CS 125/225 Final Project
-Fall 2024 / Fall 2025
+Macalester College – Final Project
+Data Structures / Java Programming
